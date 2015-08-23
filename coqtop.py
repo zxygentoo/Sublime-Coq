@@ -4,24 +4,45 @@ import time
 import sys
 import os
 import select
+import sublime
 
 try:
     from Queue import Queue, Empty
 except ImportError:
     from queue import Queue, Empty
 
+def find_executable():
+    prefixs = os.getenv("PATH").split(':')
+
+    for pre in prefixs:
+        try:
+            os.stat(pre + "/coqtop")
+        except IOError:
+            continue
+
+        return pre + "/coqtop"
+
 class Coqtop:
-    def __init__(self, manager):
-        if sys.platform.startswith('darwin'):
-            self.proc = Popen(['coqtop'], stdin=PIPE, stderr=STDOUT, stdout=PIPE, universal_newlines=True)
-        elif sys.platform.startswith('win32') or sys.platform.startswith('cygwin'):
-            self.proc = Popen(['coqtop'], stdin=PIPE, stderr=STDOUT, stdout=PIPE, universal_newlines=True)
+    def __init__(self, manager, path):
+        try:
+            os.stat(path)
+        except IOError:
+            sublime.error_message("invalid coqtop path: " + path)
+            path = find_executable()
+
+        if path is not None:
+            if sys.platform.startswith('darwin'):
+                self.proc = Popen([path], stdin=PIPE, stderr=STDOUT, stdout=PIPE, universal_newlines=True)
+            elif sys.platform.startswith('win32') or sys.platform.startswith('cygwin'):
+                self.proc = Popen([path], stdin=PIPE, stderr=STDOUT, stdout=PIPE, universal_newlines=True)
+            else:
+                self.proc = Popen([path], stdin=PIPE, stderr=STDOUT, stdout=PIPE, universal_newlines=True)
+            self.manager = manager
+            self.out_thread = Thread(target=self.receive)
+            self.out_thread.daemon = True
+            self.out_thread.start()
         else:
-            self.proc = Popen(['coqtop'], stdin=PIPE, stderr=STDOUT, stdout=PIPE, universal_newlines=True)
-        self.manager = manager
-        self.out_thread = Thread(target=self.receive)
-        self.out_thread.daemon = True
-        self.out_thread.start()
+            sublime.error_message("Coqtop not found")
 
     def kill(self):
         self.proc.kill()
@@ -36,7 +57,7 @@ class Coqtop:
                     data = os.read(self.proc.stdout.fileno(), 256)
                     buf += data.decode(encoding='UTF-8')
                 except OSError as e:
-                    print(e)
+                    sublime.error_message(str(e))
 
             while buf.startswith('Coq < '):
                 buf = buf[6:]
@@ -53,5 +74,6 @@ class Coqtop:
             self.manager.receive(output, prompt)
 
     def send(self, statement):
+        # print(statement)
         self.proc.stdin.write(statement + '\n')
         self.proc.stdin.flush()

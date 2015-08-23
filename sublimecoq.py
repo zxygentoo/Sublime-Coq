@@ -2,13 +2,17 @@ import re
 import sublime, sublime_plugin
 from .coqtop import Coqtop
 
+# Coqtop manager is managing the Coqtop instance and the views in a singleton way
+
 class CoqtopManager:
     def __init__(self):
         self.coqtop = None
         self.reset()
 
     def start(self):
-        self.coqtop = Coqtop(self)
+        settings = sublime.load_settings('Sublime-Coq.sublime-settings')
+        path = settings.get("coqtop_path")
+        self.coqtop = Coqtop(self, path)
 
     def send(self, statement):
         self.output_view.run_command('coqtop_clear')
@@ -43,19 +47,13 @@ class CoqtopManager:
 
 manager = CoqtopManager()
 
+# Commands exposed to user
+
 class CoqtopClearCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         entire_region = sublime.Region(0, self.view.size())
         self.view.set_read_only(False)
         self.view.erase(edit, entire_region)
-        self.view.set_read_only(True)
-
-class CoqtopOutputCommand(sublime_plugin.TextCommand):
-    def run(self, edit, output):
-        entire_region = sublime.Region(0, self.view.size())
-        self.view.set_read_only(False)
-        self.view.erase(edit, entire_region)
-        self.view.insert(edit, 0, output)
         self.view.set_read_only(True)
 
 class CoqtopSuccessCommand(sublime_plugin.TextCommand):
@@ -65,9 +63,21 @@ class CoqtopSuccessCommand(sublime_plugin.TextCommand):
         r = coqfile_view.find(r'(.|\n)*?\.( |\n|$)', manager.current_position)
         text = coqfile_view.substr(r).strip()
 
-        if 'keyword.coq' in coqfile_view.scope_name(manager.current_position).split(' '):
+        # print("Current proof num: " + str(manager.current_proof_number))
+        # print("Current statement num: " + str(manager.current_statement_number))
+
+        if 'keyword.other.coq' in coqfile_view.scope_name(manager.current_position).split(' '):
             if text == 'Proof.':
                 manager.proof_mode = True
+            else:
+                # print("Text: " + text)
+                pass
+        else:
+            # print("scope_name: ")
+            # print(coqfile_view.scope_name(manager.current_position).split(' '))
+            pass
+
+        # print(manager.proof_mode)
 
         if manager.proof_mode:
             if text == 'Qed.' or text == 'Admitted.' or text == 'Save.' or text == 'Defined.':
@@ -80,6 +90,7 @@ class CoqtopSuccessCommand(sublime_plugin.TextCommand):
 
         coqfile_view.show(r)
         manager.current_position = r.end()
+        # print([r])
         coqfile_view.add_regions(name, [r], 'meta.coq.proven')
 
 class CoqNextStatementCommand(sublime_plugin.TextCommand):
@@ -171,6 +182,16 @@ class CoqStopCommand(sublime_plugin.TextCommand):
 
         manager.reset()
 
+# Internal commands
+
+class CoqtopOutputCommand(sublime_plugin.TextCommand):
+    def run(self, edit, output):
+        entire_region = sublime.Region(0, self.view.size())
+        self.view.set_read_only(False)
+        self.view.erase(edit, entire_region)
+        self.view.insert(edit, 0, output)
+        self.view.set_read_only(True)
+
 class RunCoqCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         coq_syntax = self.view.settings().get('syntax')
@@ -198,6 +219,7 @@ class RunCoqCommand(sublime_plugin.TextCommand):
         manager.output_view = coqtop_view
 
         manager.start()
+
 
 class CoqContext(sublime_plugin.EventListener):
     def on_query_context(self, view, key, operator, operand, match_all):
