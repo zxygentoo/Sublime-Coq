@@ -1,1 +1,2 @@
-*.YAML-tmLanguage
+*.YAML-tm*
+*.pyc

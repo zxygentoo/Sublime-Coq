@@ -1,7 +1,15 @@
 Sublime Coq
 ===========
 
-Extensions to the Sublime Text 3 editor for use with the Coq programming language.
+Extensions to the Sublime Text 3 editor for use with the Coq Proof Assistant.
+
+File Path
+--------
+
+You might need to modify the user preference file for Sublime-Coq, change `coqtop_path` to a proper value (usually got from `which coqtop` or similar way), so the `coqtop` program can be correctly found.
+
+The default value will be simply `coqtop`, but during initialization, `PATH` will also be searched.
+
 
 Highlighting
 ------------
@@ -23,7 +31,10 @@ add this to your theme (for light backgrounds):
 </dict>
 ```
 
-Mac OS X
---------
+TODOs
+-----
+* Enrich the language spec
+* Write a simple user guide
+* The `undo` seems not working well sometimes
 
-On OS X, you may need to use [SublimeFixMacPath package](https://github.com/int3h/SublimeFixMacPath) if coqtop is not present in your system path.
+
