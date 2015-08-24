@@ -17,7 +17,7 @@ def find_executable():
     for pre in prefixs:
         try:
             os.stat(pre + "/coqtop")
-        except IOError:
+        except OSError:
             continue
 
         return pre + "/coqtop"
