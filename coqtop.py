@@ -74,6 +74,5 @@ class Coqtop:
             self.manager.receive(output, prompt)
 
     def send(self, statement):
-        # print(statement)
         self.proc.stdin.write(statement + '\n')
         self.proc.stdin.flush()

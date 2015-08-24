@@ -63,21 +63,9 @@ class CoqtopSuccessCommand(sublime_plugin.TextCommand):
         r = coqfile_view.find(r'(.|\n)*?\.( |\n|$)', manager.current_position)
         text = coqfile_view.substr(r).strip()
 
-        # print("Current proof num: " + str(manager.current_proof_number))
-        # print("Current statement num: " + str(manager.current_statement_number))
-
         if 'keyword.other.coq' in coqfile_view.scope_name(manager.current_position).split(' '):
             if text == 'Proof.':
                 manager.proof_mode = True
-            else:
-                # print("Text: " + text)
-                pass
-        else:
-            # print("scope_name: ")
-            # print(coqfile_view.scope_name(manager.current_position).split(' '))
-            pass
-
-        # print(manager.proof_mode)
 
         if manager.proof_mode:
             if text == 'Qed.' or text == 'Admitted.' or text == 'Save.' or text == 'Defined.':
@@ -90,7 +78,6 @@ class CoqtopSuccessCommand(sublime_plugin.TextCommand):
 
         coqfile_view.show(r)
         manager.current_position = r.end()
-        # print([r])
         coqfile_view.add_regions(name, [r], 'meta.coq.proven')
 
 class CoqNextStatementCommand(sublime_plugin.TextCommand):

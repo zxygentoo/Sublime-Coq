@@ -34,7 +34,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>\b(Conjecture|Parameter|Parameters|Variable|Variables|Axiom|Hypothesis| |Hypotheses|Definition|Let|Fixpoint|CoFixpoint|Inductive|Record|CoInductive| |Remark|Fact|Corollary|Proposition|Example|Module|Theorem|Lemma|Section| |End|Proof)\b</string>
+			<string>\b(Conjecture|Parameter|Parameters|Variable|Variables|Axiom|Hypothesis|Hypotheses|Definition|Let|Fixpoint|CoFixpoint|Inductive|Record|CoInductive|Remark|Fact|Corollary|Proposition|Example|Module|Theorem|Lemma|Section|End|Proof)\b</string>
 		</dict>
 		<dict>
 			<key>captures</key>
@@ -58,13 +58,13 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>\b(Open|Require|Export|Import|Scope|try|repeat|SSCase|SCase|Case|level|no| |asssociativity|else|in|if|then|else_|as|at|cofix|end|exists|exists2|Proof| |Qed|fix|for|forall|fun|IF|in|let|match|mod|return|using|where|with|Back|Reset)\b</string>
+			<string>\b(Open|Require|Export|Import|Scope|try|repeat|SSCase|SCase|Case|level|no|asssociativity|else|in|if|then|else_|as|at|cofix|end|exists|exists2|Proof|Qed|fix|for|forall|fun|IF|in|let|match|mod|return|using|where|with|Back|Reset)\b</string>
 		</dict>
 		<dict>
 			<key>comment</key>
 			<string>Tactics</string>
 			<key>match</key>
-			<string>\b(apply|eapply|pattern|discriminate|case|unfold|trivial|auto|exact|simpl|reflexivity|intro|intros| |rewrite|destruct|induction|compute|omega|clear|subst|rename|into|assumption| |contradiction|constructor|split|generalize|dependent|elim|injection)\b</string>
+			<string>\b(apply|eapply|pattern|discriminate|case|unfold|trivial|auto|exact|simpl|reflexivity|intro|intros|rewrite|destruct|induction|compute|omega|clear|subst|rename|into|assumption|contradiction|constructor|split|generalize|dependent|elim|injection)\b</string>
 			<key>name</key>
 			<string>entity.name.function</string>
 		</dict>
