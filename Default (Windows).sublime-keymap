@@ -18,39 +18,30 @@
         ]
     },
     {
-        "keys": ["ctrl+enter"],
-        "command": "coq_go_to",
-        "context":  [
-            {
-                "key": "running_coqtop", "operator": "equal", "operand": "*COQTOP*"
-            }
-        ]
-    },
-    {
-        "keys": ["ctrl+end"],
-        "command": "coq_end",
-        "context":  [
-            {
-                "key": "running_coqtop", "operator": "equal", "operand": "*COQTOP*"
-            }
-        ]
-    },
-    {
-        "keys": ["ctrl+home"],
-        "command": "coq_home",
-        "context":  [
-            {
-                "key": "running_coqtop", "operator": "equal", "operand": "*COQTOP*"
-            }
-        ]
-    },
-    {
-        "keys": ["escape"],
+        "keys": ["ctrl+escape"],
         "command": "coq_stop",
         "context":  [
             {
                 "key": "running_coqtop", "operator": "equal", "operand": "*COQTOP*"
             }
         ]
-    }
+    },
+    {
+        "keys": ["ctrl+backspace"],
+        "command": "coqtop_clear",
+        "context":  [
+            {
+                "key": "running_coqtop", "operator": "equal", "operand": "*COQTOP*"
+            }
+        ]
+    },
+    {
+        "keys": ["ctrl+enter"],
+        "command": "coqtop_success",
+        "context": [
+            {
+                "key": "running_coqtop", "operator": "equal", "operand": "*COQTOP*"
+            }
+        ]
+    },
 ]
