@@ -1,0 +1,54 @@
+%YAML 1.2
+---
+name: Coq Search
+scope: source.coqsearch
+hidden: true
+
+variables:
+  ident: '([a-zA-Z_][a-zA-Z0-9_'']*)'
+  keywords: 'Inductive'
+
+contexts:
+  main:
+    - match: '\A(?={{keywords}})'
+      set: coqtop
+    - match: '^(Error:|Syntax [Ee]rror:).*'
+      scope: message.error
+    - match: '^"(?=.+")'
+      embed: scope:source.coq#term
+      escape: '"'
+    - match: '\A({{ident}})?\s*(=) '
+      captures:
+        1: variable.other.coq
+        2: punctuation.separator.coq
+      embed: 'scope:source.coq#term'
+      escape: '^$'
+    - match: '(?=:=)'
+      embed: scope:source.coq#term
+      escape: '^(?=\S|\s*\(default interpretation\))'
+    - include: linea
+  coqtop:
+    - match: '^$'
+      set: plain
+    - match: '\A'
+      embed: scope:source.coq#main
+      escape: '(?=^$)'
+  plain: []
+  linea:
+    - match: '^({{ident}}(\.{{ident}})*)(?=:)'
+      scope: entity.name.coq meta.line.stripe
+      set: lineb
+    - match: ':'
+      scope: punctuation.separator.coq
+      embed: scope:source.coq#term
+      embed_scope: meta.type.coq
+      escape: '^(?=\S)'
+  lineb:
+    - match: '^({{ident}}(\.{{ident}})*)(?=:)'
+      scope: entity.name.coq
+      set: linea
+    - match: ':'
+      scope: punctuation.separator.coq meta.line.stripe
+      embed: scope:source.coq#term
+      embed_scope: meta.type.coq meta.line.stripe
+      escape: '^(?=\S)'

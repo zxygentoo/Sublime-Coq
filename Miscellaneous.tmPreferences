@@ -9,9 +9,9 @@
   <key>settings</key>
   <dict>
     <key>increaseIndentPattern</key>
-    <string>.*\bProof\.|.*:=|.*\b(destruct|induction|Case)(.*)\.$</string>
+    <string>.*\b(Proof\.|Goal\b)|.*:=?$|.*\b(destruct|induction|[Cc]ase)(.*)\.$|^\s*[-+*]</string>
     <key>decreaseIndentPattern</key>
-    <string>\s*Qed\.\s*</string>
+    <string>\s*Qed\.\s*|\s*[-+*]</string>
     <key>shellVariables</key>
     <array>
       <dict>

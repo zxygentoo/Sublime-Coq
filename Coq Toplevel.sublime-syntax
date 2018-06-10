@@ -1,0 +1,73 @@
+%YAML 1.2
+---
+name: Coq Toplevel
+scope: source.coqtop
+hidden: true
+
+variables:
+  ident: '(?:[a-zA-Z_][a-zA-Z0-9_'']*)'
+
+contexts:
+  main:
+    # Informational messages
+    - match: '^Welcome to Coq .*'
+      scope: message.info
+    - match: '^({{ident}}) is recursively defined \(decreasing on \w+ argument\)$'
+      scope: message.info
+    - match: '^({{ident}}) is (declared|defined)$'
+      scope: markup.inserted
+      captures:
+        # This capture is used by Sublime-Coq when it undoes steps.
+        1: meta.defined.coq
+    - match: '^\d+( focused)? subgoals?$'
+      scope: message.info
+    - match: '^\(unfocused: [\d-]+\)$'
+      scope: message.info
+    # Error messages
+    - match: '^(Error:|Syntax [Ee]rror:).*'
+      scope: message.error
+      # set:
+      #   - match: '.+'
+      #     scope: message.error
+    - match: '^(Warning:).*'
+      scope: message.warning
+    - match: '"'
+      embed: 'scope:source.coq#term'
+      escape: '"'
+    - match: '^> *(\^+)$'
+      captures:
+        1: message.error
+    - match: '^(>  )'
+      embed: 'scope:source.coq#term'
+      escape: '(?=^\1|^Error:|Syntax [Ee]rror:)'
+    # Goals and environment in proof mode
+    - match: '^( *)?({{ident}})(, ({{ident}}))* (?=:=?)'
+      embed: 'scope:source.coq#term'
+      escape: '^(?=\1{{ident}}(, {{ident}})* :=?|\1=+)'
+      captures:
+        2: entity.name.coq
+        4: entity.name.coq
+    - match: '^  (=+)$'
+      embed: 'scope:source.coq#term'
+      escape: '(^$)'
+      scope: meta.goal.coq
+      captures:
+        1: punctuation.separator.coq
+    - match: '^\d+ subgoals?, subgoal \d+$'
+      scope: message.info
+    - match: '^\(unfocused: [\d-]+\), subgoal \d+$'
+      scope: message.info
+    - match: '^(subgoal \d+ is:)'
+      scope: message.info
+      embed: 'scope:source.coq#term'
+      escape: '^(?=subgoal)'
+    # Output of Qed, Defined, Compute, Print, etc.
+    - match: '^Proof(?=\.$)'
+      scope: keyword.coq
+      push: 'scope:source.coq#proof'
+    - match: '\A({{ident}})?\s*([=:]) '
+      captures:
+        1: variable.other.coq
+        2: punctuation.separator.coq
+      embed: 'scope:source.coq#term'
+      escape: '^$'

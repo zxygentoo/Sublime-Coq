@@ -1,47 +1,15 @@
 [
-    {
-        "keys": ["ctrl+down"],
-        "command": "coq_next_statement",
-        "context":  [
-            {
-                "key": "running_coqtop", "operator": "equal", "operand": "*COQTOP*"
-            }
-        ]
-    },
-    {
-        "keys": ["ctrl+up"],
-        "command": "coq_undo_statement",
-        "context":  [
-            {
-                "key": "running_coqtop", "operator": "equal", "operand": "*COQTOP*"
-            }
-        ]
-    },
-    {
-        "keys": ["ctrl+escape"],
-        "command": "coq_stop",
-        "context":  [
-            {
-                "key": "running_coqtop", "operator": "equal", "operand": "*COQTOP*"
-            }
-        ]
-    },
-    {
-        "keys": ["ctrl+backspace"],
-        "command": "coqtop_clear",
-        "context":  [
-            {
-                "key": "running_coqtop", "operator": "equal", "operand": "*COQTOP*"
-            }
-        ]
-    },
-    {
-        "keys": ["ctrl+enter"],
-        "command": "coqtop_success",
-        "context": [
-            {
-                "key": "running_coqtop", "operator": "equal", "operand": "*COQTOP*"
-            }
-        ]
-    },
+    { "keys": ["ctrl+down"],      "command": "coq_next_statement",
+      "context": [{ "key": "coq", "operator": "equal", "operand": "editor" }] },
+    { "keys": ["ctrl+up"],        "command": "coq_undo_statement",
+      "context": [{ "key": "coq", "operator": "equal", "operand": "editor" }] },
+    { "keys": ["alt+backspace"],  "command": "coq_undo_proof",
+      "context": [{ "key": "coq", "operator": "equal", "operand": "editor" }] },
+    { "keys": ["ctrl+enter"],     "command": "coq_go_here",
+      "context": [{ "key": "coq", "operator": "equal", "operand": "editor" }] },
+    { "keys": ["escape"],         "command": "coq_clear_error",
+      "context": [{ "key": "coq", "operator": "equal", "operand": "editor" },
+                  { "key": "coq_error", "operator": "equal", "operand": true }] },
+    { "keys": ["ctrl+escape"],    "command": "coq_stop",
+      "context": [{ "key": "coq", "operator": "equal", "operand": "editor" }] },
 ]

@@ -1,3 +1,6 @@
 {
-    "coqtop_path": "coqtop"
+    "coqtop_path": "",
+    "coqtop_args": [],
+    // "coq_debug": ["coqtop", "manager"],
+    "coq_debug": [],
 }

@@ -1,5 +1,5 @@
 {
-  "scope": "source.coq - type.coq - proof.coq",
+  "scope": "meta.sentence.coq",
 
   "completions":
   [
@@ -11,13 +11,13 @@
     { "trigger": "Eval", "contents": "Eval $1 in $0." },
     { "trigger": "Notation", "contents": "Notation \"$1\" := $2\n  (at level $3, $4 associativity)\n  : $5_scope." },
 
-    { "trigger": "Example", "contents": "Example $1: $0." },
-    { "trigger": "Theorem", "contents": "Theorem $1 : $0." },
-    { "trigger": "Lemma", "contents": "Lemma $1 : $0." },
-    { "trigger": "Fact", "contents": "Fact $1 : $0." },
-    { "trigger": "Remark", "contents": "Remark $1 : $0." },
+    { "trigger": "Example", "contents": "Example $1 : $2.\nProof.\n  $0\nQed." },
+    { "trigger": "Theorem", "contents": "Theorem $1 : $2.\nProof.\n  $0\nQed." },
+    { "trigger": "Lemma", "contents": "Lemma $1 : $2.\nProof.\n  $0\nQed." },
+    { "trigger": "Fact", "contents": "Fact $1 : $2.\nProof.\n  $0\nQed." },
+    { "trigger": "Remark", "contents": "Remark $1 : $2.\nProof.\n  $0\nQed." },
 
-    { "trigger": "forall", "contents": "forall $1:$2, $0" },
+    { "trigger": "forall", "contents": "forall $1: $2, $0" },
     { "trigger": "match", "contents": "match $1 with\n| $2 => $3\nend" }
   ]
 }
