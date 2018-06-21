@@ -3,6 +3,10 @@ Sublime Coq
 
 Extensions to the Sublime Text 3 editor for use with the Coq Proof Assistant.
 
+**Note:** Coq has a great many features, and not all of them are supported in the syntax highlighter and command palette yet. If you want something or encounter a highlighting error, just [open an issue]!
+
+[open an issue]: https://github.com/whitequark/Sublime-Coq
+
 Getting Started
 ---------------
 
