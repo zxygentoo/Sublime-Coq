@@ -252,7 +252,7 @@ class CoqOutputCommand(sublime_plugin.TextCommand):
 # Advancing through the proof
 
 RE_COMMENT    = r'\(\*(.|\n)*?\*\)'
-RE_STATEMENT  = r'[*+-]|(.|\n)*?\.(?=\s|$)'
+RE_STATEMENT  = r'[*+-]+|(.|\n)*?\.(?=\s|$)'
 RE_DEFINITION = r'\s*[A-Z][a-z]+'
 
 class CoqCommand(ManagerCommand):
