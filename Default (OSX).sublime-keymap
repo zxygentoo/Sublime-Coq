@@ -3,7 +3,7 @@
       "context": [{ "key": "coq", "operator": "equal", "operand": "editor" }] },
     { "keys": ["super+ctrl+u"], "command": "coq_undo_statement",
       "context": [{ "key": "coq", "operator": "equal", "operand": "editor" }] },
-    { "keys": ["super+ctrl+p"], "command": "coq_undo_proof",
+    { "keys": ["super+ctrl+p"], "command": "coq_abort_proof",
       "context": [{ "key": "coq", "operator": "equal", "operand": "editor" }] },
     { "keys": ["super+ctrl+h"], "command": "coq_go_here",
       "context": [{ "key": "coq", "operator": "equal", "operand": "editor" }] },

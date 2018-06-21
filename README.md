@@ -12,7 +12,7 @@ There are several commands available now:
 
 * **Coq: Next Statement** (OS X: `Super+Ctrl+n`, Win/Linux: `Ctrl+Down`): Prove the current line and go to next statement.
 * **Coq: Undo Statement** (OS X: `Super+Ctrl+u`, Win/Linux: `Ctrl+Up`): Undo the current proven statement and go back to the last line. Undoing `Qed.` undoes the entire proof.
-* **Coq: Undo Proof** (OS X: `Super+Ctrl+p`, Win/Linux: `Alt+Backspace`): In a proof, undo every tactic and the theorem definition.
+* **Coq: Abort Proof** (OS X: `Super+Ctrl+p`, Win/Linux: `Alt+Backspace`): In a proof, undo every tactic and the theorem definition.
 * **Coq: Run Here** (OS X: `Super+Ctrl+h`, Win/Linux: `Ctrl+Enter`): Prove or undo statements until the caret position is reached.
 * **Coq: Search**, **Coq: Search Pattern**, **Coq: Search Rewrite**, **Coq: Search About**: Search proofs, patterns and rewriting theorems, with results shown as you type. Press Enter to select a name from search results and insert it at caret.
 * **Coq: Stop**: (OS X: `Super+Ctrl+k`, Win/Linux: `Ctrl+Escape`): Stop `coqtop` and close the output pane.

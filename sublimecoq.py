@@ -437,7 +437,7 @@ class CoqUndoStatementCommand(CoqCommand):
 
         return kind
 
-class CoqUndoProofCommand(CoqCommand):
+class CoqAbortProofCommand(CoqCommand):
     def is_enabled(self):
         manager = self._manager()
         return super().is_enabled() and not manager.empty() and manager.scope == 'tactic'
@@ -445,17 +445,10 @@ class CoqUndoProofCommand(CoqCommand):
     def run(self, edit):
         manager = self._manager()
 
-        manager.autorun_point = manager.rev_find('theorem')
-        if manager.autorun_point is None:
-            print('coq: cannot find theorem to undo!')
-            return
-
-        manager.autorun_forward = False
-        if manager.debug:
-            print('coq: run backward until {}'.format(manager.autorun_point))
-
-        manager.autorun_enabled = True
-        self._autorun()
+        manager.send('Abort.')
+        while manager.scope in ['tactic', 'theorem']:
+            _kind, region_name, _scope, _defined = manager.pop()
+            self._erase_region(region_name)
 
 # Search
 

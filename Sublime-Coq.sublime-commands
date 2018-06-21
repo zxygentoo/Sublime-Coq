@@ -3,7 +3,7 @@
     { "caption": "Coq: Restart", "command": "coq_restart" },
     { "caption": "Coq: Next Statement", "command": "coq_next_statement" },
     { "caption": "Coq: Undo Statement", "command": "coq_undo_statement" },
-    { "caption": "Coq: Undo Proof", "command": "coq_undo_proof" },
+    { "caption": "Coq: Abort Proof", "command": "coq_abort_proof" },
     { "caption": "Coq: Go Here", "command": "coq_go_here" },
     { "caption": "Coq: Clear Error", "command": "coq_clear_error" },
     { "caption": "Coq: Check", "command": "coq_evaluate",
