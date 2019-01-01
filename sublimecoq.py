@@ -93,7 +93,7 @@ class CoqtopManager:
             if self.retry_on_empty:
                 self.send(self.retry_on_empty, redirect_view=self.redirect_view)
             else:
-                output = "Done."
+                output = self.last_output
 
         # Clean up some useless messages
         output = re.sub(r'''
