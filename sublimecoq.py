@@ -44,10 +44,8 @@ class CoqtopManager:
             sublime.error_message('Cannot find Coqtop.')
             return False        
         pwd = sublime.Window.folders(sublime.active_window())[0]
-        if self.settings.get('coqtop_args'):
-            args = self.settings.get('coqtop_args')
-        else:
-            args = ["-R", pwd, ""]
+        args = ["-R", pwd, ""]
+        args = self.settings.get('coqtop_args') + args
         debug = 'coqtop' in self.settings.get('coq_debug')
 
         self.coqtop = Coqtop(self, path, args, debug)
